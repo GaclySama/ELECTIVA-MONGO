@@ -109,11 +109,11 @@ async def new_order(data: JsonOrder):
         )
     
 # TODO Ruta para las ordenes del cliente
-@router.get('/get')
-async def get_orders(id_user):
+@router.get('/get/{id}',)
+async def get_orders(id: str):
     try:
         
-        results = orders_collection.find_one({'_id': ObjectId(id_user)})
+        results = orders_collection.find_one({'_id': ObjectId(id)})
 
         results["_id"] = str(results["_id"])
 
@@ -133,6 +133,7 @@ async def get_orders(id_user):
         logger.error(f'Error get_orders: {e}')
         raise e
     except Exception as e:
+        logger.error(f'Error get_orders: {e}')
         raise HTTPException(
             status_code= status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail= f'Error get_orders: {e}'

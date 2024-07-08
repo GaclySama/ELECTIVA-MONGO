@@ -4,18 +4,20 @@ import Header from '../../common/Header';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 import { loadUser } from '../../services/user';
+import { getOrders } from '../../services/order';
 import * as ImagePicker from 'expo-image-picker'
 
+
 const User = () => {
-  const [user, setUser] = useState({ email: '', name: '' });
+  const [user, setUser] = useState({_id: '' , email: '', name: ''});
   const [image, setImage] = useState('');
   const navigation = useNavigation();
 
   useEffect(() => {
     const User = async () => {
       try {
-          const { email, name } = await loadUser();
-          setUser({ email, name });
+          const { _id, email, name  } = await loadUser();
+          setUser( { _id, email, name } );
       } catch (error) {
         console.error('Failed to load user from AsyncStorage:', error);
       }
@@ -23,6 +25,16 @@ const User = () => {
 
     User();
   }, []);
+
+  const renderOrder = async () => {
+    try {
+      const res = await getOrders(user._id);
+      navigation.navigate('Imprime', { orders: res });
+
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const logout = async () => {
     try {
@@ -81,7 +93,7 @@ const User = () => {
       <TouchableOpacity
         style={[styles.tab, {marginTop: 10}]}
         onPress={() => {
-          navigation.navigate('Imprime');
+          renderOrder();
         }}>
         <Text style={styles.txt}>Movimientos</Text>
       </TouchableOpacity>

@@ -5,11 +5,12 @@ import Header from '../common/Header';
 import {useSelector} from 'react-redux';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
+import { useRoute } from '@react-navigation/native';
 
 const Imprime = ({navigation}) => {
-
+  const route = useRoute();
+  const orders = route.params?.orders;
   //variables por defecto
-
   const ordersList = useSelector(state => state.order);
 
   const datoss = JSON.parse(JSON.stringify(ordersList.data));
