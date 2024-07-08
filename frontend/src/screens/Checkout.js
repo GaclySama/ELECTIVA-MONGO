@@ -23,7 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {orderItem} from '../redux/slices/OrderSlice';
 import Pagado from './OrdenPagado';
 import { loadUser } from '../services/user';
-import { createOrder } from '../services/product';
+import { createOrder } from '../services/order';
 
 const Checkout = () => {
   const navigation = useNavigation();

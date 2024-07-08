@@ -2,7 +2,6 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import api from "./api";
 
 
-
 // * Función que consume endPoint de FastAPI y devuelve los productos guardados en FireBase
 export const getProducts = async () => {
 
@@ -21,15 +20,3 @@ export const getProducts = async () => {
       return[false]
   }
 };
-
-export const createOrder = async (data) => {
-
-  try {
-    const res = await api.post('/product/create/order', data)
-    getProducts()
-    console.log(res);
-    return res;
-  } catch (error) { 
-      console.log(error);
-  }
-}

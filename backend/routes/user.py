@@ -128,3 +128,4 @@ async def sing_in(login_data: LoginSchema):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR, detail=f"Error: {e}"
         )
         
+
