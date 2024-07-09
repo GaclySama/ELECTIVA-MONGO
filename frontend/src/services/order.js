@@ -15,18 +15,15 @@ export const createOrder = async (data) => {
 }
 
 export const getOrders = async (id) => {
-
   try {
-    const res = await api.get(`/order/get/${id}`)
-
-    return res.data
+    const res = await api.get(`/order/get/${id}`);
+    return { success: true, data: res.data };
   } catch (error) {
-      if (error.response) {
-          err = error.response.data.detail || 'Error desconocido';
-      } else if (error.request) {
-          err = 'No se recibió respuesta del servidor';
-      } else {
-          err = 'Error en la configuración de la solicitud';
-      }
+    // Manejar diferentes tipos de errores
+    if (error.response && error.response.status === 404) {
+      return { success: false, message: 'No se encontraron ordenes' };
+    } else {
+      return { success: false, message: 'Ha ocurrido un error' };
+    }
   }
-}
+};

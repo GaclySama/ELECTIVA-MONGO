@@ -115,13 +115,13 @@ async def get_orders(id: str):
         
         results = orders_collection.find_one({'_id': ObjectId(id)})
 
-        results["_id"] = str(results["_id"])
-
         if not results:
             raise HTTPException(
                 status_code= status.HTTP_404_NOT_FOUND,
                 detail= 'No has realizado ordenes'
             )
+        
+        results["_id"] = str(results["_id"])
 
         return JSONResponse(
             status_code= status.HTTP_200_OK,

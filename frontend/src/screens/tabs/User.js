@@ -29,10 +29,13 @@ const User = () => {
   const renderOrder = async () => {
     try {
       const res = await getOrders(user._id);
-      navigation.navigate('Imprime', { orders: res });
-
+      if (res.success) {
+        navigation.navigate('Imprime', { orders: res.data });
+      } else {
+        console.error(res.message || 'Error en los pedidos');
+      }
     } catch (error) {
-      console.log(error);
+      console.error('Unexpected error:', error);
     }
   };
 
