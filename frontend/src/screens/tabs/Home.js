@@ -120,7 +120,7 @@ const Home = () => {
           selected.valor == null && selected.valor == undefined
             ? products.data
             : selected.valor === 'Todo' 
-              ? products.data.filter(item => item.available != 0)
+              ? products.data
               : selected.valor === 'Mujer'
                 ? products.data.filter(item => item.category === 'mujer' && item.available != 0)
                 : selected.valor === 'Hombre'

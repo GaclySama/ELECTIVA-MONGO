@@ -35,7 +35,7 @@ import { addProduct } from '../services/admin'
     const tags = ['hombre', 'mujer', 'niño', 'niña'];
 
     //Image Picker
-    const handleImagePickerPress = async () => {
+    /* const handleImagePickerPress = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
@@ -48,7 +48,7 @@ import { addProduct } from '../services/admin'
       if (!result.canceled) {
         setImage(result.assets[0].uri);
       }
-    };
+    }; */
 
     //Validacion de dataentry
     const handlesubmit = async () => {
@@ -59,12 +59,10 @@ import { addProduct } from '../services/admin'
               return;
           }
 
-        
-
-          // Llamar a la función addProduct del servicio admin con formData
           await addProduct({ pImagen: image, pTitle: nombre, pStock: disponible, pPrice: precio, pGenero: selected });
 
-
+          // Mostrar modal de éxito
+          setModalVisible(true);
       } catch (error) {
           console.error('Error al agregar producto:', error);
           // Manejar errores según sea necesario
@@ -85,25 +83,29 @@ import { addProduct } from '../services/admin'
         renderItem={({ item }) => (
           <View >
             
-            <View style={{backgroundColor:'#dcdde1', justifyContent:'center', alignItems:'center'}}>
+            {/* <View style={{backgroundColor:'#dcdde1', justifyContent:'center', alignItems:'center'}}> */}
               
-              {//sin imagen
+              {/* {//sin imagen
               image === '' && (
               <Image source={require('../images/subir.png')} style={styles.banner}/>
 
               )}
               {//con imagen
                image && <Image source={{uri: image}} style={styles.banner}/>
-               }
+               } */}
 
-            </View>
+            {/* </View> */}
 
-            <View style={{ flexDirection:'row', padding: 5, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
+            {/* <View style={{ flexDirection:'row', padding: 5, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
                 <TouchableOpacity style={styles.BtnImage} onPress={handleImagePickerPress} ><Text style={styles.BtnText}>Subir imagen</Text></TouchableOpacity>
                 <TouchableOpacity style={styles.BtnImage} onPress={() => setImage('')} ><Text style={styles.BtnText}>Borrar imagen</Text></TouchableOpacity>
-            </View>
+            </View> */}
 
             <View style={styles.detalles}>
+
+            <Text style={{top:'2%', left:'8%',fontWeight:'bold'}}>Ingresa la url de la imagen: <Text style={{color:'red'}}>* Requerido *</Text> </Text>
+              <TextInput style={styles.Input} placeholder='Ingresa la url de la imagen' value={image} onChangeText={txt => setImage(txt)} />
+              
 
               <Text style={{top:'2%', left:'8%',fontWeight:'bold'}}>Nombre del producto: <Text style={{color:'red'}}>* Requerido *</Text> </Text>
               <TextInput style={styles.Input} placeholder='Ingresa el nombre del producto' value={nombre} onChangeText={txt => setNombre(txt)} />
@@ -121,7 +123,6 @@ import { addProduct } from '../services/admin'
                         style={{marginHorizontal:5}}
                         onPress={() => {
                         setSelected(item);
-                        setSelected({ valor: item });
                       }}>
                         <Text
                           style={[
@@ -154,6 +155,7 @@ import { addProduct } from '../services/admin'
                                       //AL PRESIONAR SE CERRARA LA VENTANA MODAL 
                                       handlesubmit();
                                       setModalVisible(false);
+                                      navigation.navigate('Main');
                                   }}>
                                   <Text style={{color:'black', fontSize: 20, fontWeight: '500'}}>Si</Text>
                               </TouchableOpacity>

@@ -29,7 +29,7 @@ def add_array_products():
 @router.get("s")
 async def get_products():
     try:
-      products = list(products_collection.find())
+      products = list(products_collection.find({"available": 1}))
 
       if not products: 
           raise HTTPException(

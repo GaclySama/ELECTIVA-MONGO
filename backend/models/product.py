@@ -9,9 +9,9 @@ class UpdateProduct(BaseModel):
     available: Optional[int] = Field(None, description="The price of the product")
 
 class Product(BaseModel):
-    imagen: bytes = Field(...)
+    imagen: str = Field(...)
     title: str = Field(...)
     stock: int = Field(gt=0)
     price: float = Field(gt=0)
     category: str = Field(...)
-    avalible: int = Field(default=1)
+    available: int = Field(default=1)

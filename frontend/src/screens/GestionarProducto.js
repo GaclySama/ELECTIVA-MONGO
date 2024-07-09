@@ -124,6 +124,7 @@ const GestionarProductos = () => {
                                     updateProduct({id: products.data[prodIndex]['_id'], available: 0})
                                     //AL PRESIONAR Si SE CERRARA LA VENTANA MODAL
                                     setModalVisible(false);
+                                    navigation.navigate("Main");
                                 }}>
                                 <Text style={{color:'black', fontSize: 20, fontWeight: '500'}}>Si</Text>
                             </TouchableOpacity>

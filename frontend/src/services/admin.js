@@ -1,4 +1,5 @@
 import api from './api'
+import {getProducts} from './product'
 
 export const addProduct = async ({ pImagen, pTitle, pStock, pPrice, pGenero }) => {
 
@@ -8,13 +9,14 @@ export const addProduct = async ({ pImagen, pTitle, pStock, pPrice, pGenero }) =
     stock: int = pStock,
     price: float = pPrice, 
     category: str = pGenero,
-    avalible: int = 1
+    available: int = 1
   }
 
      try {
         const res = await api.post('/admin/newProduct', data)
 
-        console.log(res);
+        //console.log(res);
+        getProducts();
       
      } catch (error) {
         console.log(error);
@@ -31,7 +33,8 @@ export const updateProduct = async ({id, disponible = undefined, precio = undefi
   
     try {
         const res = await api.patch(`/admin/updateProduct/${id}`, data); // Ajusta la URL del endpoint
-        console.log(res);
+        //console.log(res);
+        getProducts();
         return res;
 
     } catch (error) {

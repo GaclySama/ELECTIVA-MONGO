@@ -13,6 +13,8 @@ const Imprime = ({navigation}) => {
   //variables por defecto
   /* const ordersList = useSelector(state => state.order);
   console.log(ordersList); */
+  /* const ordersList = useSelector(state => state.order);
+  console.log(ordersList); */
 
   const datoss = JSON.parse(JSON.stringify(orders));
   
@@ -26,7 +28,7 @@ const Imprime = ({navigation}) => {
     
     let valor2 = (index === undefined) ? 0 : index;
 
-    console.log(valor2);
+    // console.log(valor2);
     
     if (datoss.length > 0 ) {
 
@@ -53,7 +55,12 @@ const Imprime = ({navigation}) => {
       let cantidad = item.qty;
       let precio = item.price;
 
+      let nombre = item.title;
+      let cantidad = item.qty;
+      let precio = item.price;
+
       // Agrega una fila a la tabla con los datos del item
+      tablaFinal += `
       tablaFinal += `
         <tr>
           <td><span>${nombre}</span></td>
@@ -63,13 +70,15 @@ const Imprime = ({navigation}) => {
       `;
   
       // Realiza las operaciones deseadas con los datos
-      console.log(`Item ${index + 1}: ${nombre}, Cantidad: ${cantidad}, Precio: ${precio}`);
+      //console.log(`Item ${index + 1}: ${nombre}, Cantidad: ${cantidad}, Precio: ${precio}`);
     })
   };
   
      // Retorna el contenido de la tabla
+     // Retorna el contenido de la tabla
   };
 
+  tabla2();
   tabla2();
 
   const data = {
@@ -80,6 +89,7 @@ const Imprime = ({navigation}) => {
 
 
   //formato PDF en html
+  const html = () =>`
   const html = () =>`
     <html>
           <head>
@@ -115,13 +125,16 @@ const Imprime = ({navigation}) => {
                 <tr>
                   <th><span>Factura #</span></th>
                   ${TablaForderId}
+                  ${TablaForderId}
                 </tr>
                 <tr>
                   <th><span>Fecha</span></th>
                   ${tablaFecha}
+                  ${tablaFecha}
                 </tr>
                 <tr>
                   <th><span>Monto a Pagar</span></th>
+                  ${tablaFmonto}
                   ${tablaFmonto}
                 </tr>
               </table>
@@ -135,12 +148,14 @@ const Imprime = ({navigation}) => {
                 </thead>
                 <tbody>
                   ${tablaFinal}
+                  ${tablaFinal}
                 </tbody>
               </table>
               <table class="balance">
                 
                 <tr>
                   <th><span>Monto a Pagar</span></th>
+                  ${tablaFmonto}
                   ${tablaFmonto}
                 </tr>
               </table>
@@ -159,6 +174,7 @@ const Imprime = ({navigation}) => {
 let generatePdf = async () => {
     const file =  await Print.printToFileAsync({
       html: html(),
+      html: html(),
       base64: false
     });
 
@@ -175,6 +191,7 @@ let generatePdf = async () => {
         }}
       />
         <FlatList
+        data={datoss}
         data={datoss}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({item, index}) => {

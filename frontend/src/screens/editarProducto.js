@@ -30,7 +30,7 @@ import { updateProduct } from "../services/admin"
 
     //Validacion de dataentry
     const handlesubmit = () => {
-      console.log(product._id);
+      // console.log(product._id);
       if(disponible === '' && precio === ''){
           notificaErrorActualizar();
           setModalVisible(false);
@@ -88,6 +88,7 @@ import { updateProduct } from "../services/admin"
                                       //AL PRESIONAR SE CERRARA LA VENTANA MODAL 
                                       updateProduct({id: product._id, disponible: disponible, precio: precio});
                                       setModalVisible(false);
+                                      navigation.navigate("Main");
                                   }}>
                                   <Text style={{color:'black', fontSize: 20, fontWeight: '500'}}>Si</Text>
                               </TouchableOpacity>

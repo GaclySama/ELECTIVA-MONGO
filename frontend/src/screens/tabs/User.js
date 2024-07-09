@@ -89,12 +89,12 @@ const User = () => {
         {  user.email }
       </Text>
       {/* //VALOR DE IMAGEN <Text>{image}</Text> */}
-      <TouchableOpacity style={[styles.tab, {marginTop: 30}]}
+      {/* <TouchableOpacity style={[styles.tab, {marginTop: 30}]}
         onPress={() => {
           navigation.navigate('Actualizar');
         }}>
         <Text style={styles.txt}>Editar Perfil</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={[styles.tab, {marginTop: 10}]}
         onPress={() => {
