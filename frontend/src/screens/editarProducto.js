@@ -59,7 +59,7 @@ import { updateProduct } from "../services/admin"
             <View style={styles.detalles}>
               <Text style={styles.title}>{route.params.data.title}</Text>
               <Text style={{marginBottom:20,color:'#FD7272', justifyContent:'center', alignSelf:'center', fontWeight:'bold'}}>Solo se actualizarán los campos ingresados</Text>
-              <Text style={{top:'2%', left:'8%',fontWeight:'bold'}}>Disponible:  <Text style={{color:'green'}}>{route.params.data.stock}</Text><Text style={{color:'red'}}> - Disponibilidad actual</Text></Text>
+              <Text style={{top:'2%', left:'8%',fontWeight:'bold'}}>stock:  <Text style={{color:'green'}}>{route.params.data.stock}</Text><Text style={{color:'red'}}> - Disponibilidad actual</Text></Text>
               <TextInput style={styles.Input} placeholder='Ingresa nueva disponibilidad' value={disponible} onChangeText={txt => setDisponible(txt)} />
               <Text style={{top:'2%', left:'8%',fontWeight:'bold'}}>Precio:  <Text style={{color:'green'}}>{route.params.data.price}</Text><Text style={{color:'red'}}> - Precio actual</Text></Text>
               <TextInput style={styles.Input} placeholder='Ingresa nuevo precio' value={precio} onChangeText={txt => setPrecio(txt)} />

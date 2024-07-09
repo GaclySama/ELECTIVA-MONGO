@@ -21,9 +21,9 @@ export const getOrders = async (id) => {
   } catch (error) {
     // Manejar diferentes tipos de errores
     if (error.response && error.response.status === 404) {
-      return { success: false, message: 'No se encontraron ordenes' };
+      return { success: false, message: 'Order not found' };
     } else {
-      return { success: false, message: 'Ha ocurrido un error' };
+      return { success: false, message: 'An error occurred while fetching orders' };
     }
   }
 };

@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white',
-        height: 420,
+        height: 320,
         marginBottom: 15
     },
     Input: {

@@ -32,10 +32,12 @@ const User = () => {
       if (res.success) {
         navigation.navigate('Imprime', { orders: res.data });
       } else {
-        console.error(res.message || 'Error en los pedidos');
+        console.error(res.message || 'Error retrieving orders');
+        // Aquí puedes mostrar un mensaje de error en la interfaz de usuario, si es necesario
       }
     } catch (error) {
       console.error('Unexpected error:', error);
+      // Aquí puedes mostrar un mensaje de error en la interfaz de usuario, si es necesario
     }
   };
 
@@ -68,19 +70,19 @@ const User = () => {
       <Header title={'Perfil de usuario'} />
 
         
-        <TouchableOpacity style={styles.BtnImage} onPress={handleImagePickerPress} ><Text style={styles.BtnText}>+</Text></TouchableOpacity>
+{/*         <TouchableOpacity style={styles.BtnImage} onPress={handleImagePickerPress} ><Text style={styles.BtnText}>+</Text></TouchableOpacity>
+ */}
 
-
-        {//sin imagen
-          image === '' && (
+        {/* {//sin imagen
+          image === '' && ( */}
             <Image source={require('../../images/profile.png')} style={styles.user}/>
             
-        )}
-        {//con imagen
+        {/* )} */}
+        {/* {//con imagen
           image && <Image source={{uri: image}} style={styles.user}/>
-          }
+          } */}
 
-        <Image  style={styles.userFondo}/>
+        {/* <Image  style={styles.userFondo}/> */}
 
       <Text style={styles.name}>{ user.name }</Text>
       <Text style={[styles.email, {fontSize: 16, marginTop: 0}]}>

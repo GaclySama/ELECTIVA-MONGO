@@ -55,19 +55,16 @@ const Cart = () => {
                 navigation.navigate('ProductDetail', {data: item});
               }}>
               <Image source={{ uri: item.imagen }} style={styles.itemImage} />
-              <View>
+              <View style={{width: '100%',flexDirection:'row'}}>
+                <View style={{width:'55%'}}>
                 <Text style={styles.name}>
                   {item.title/* .length > 25 */
                     ? item.title.substring(0, 25) + '...'
                     : item.title}
                 </Text>
-                <Text style={styles.desc}>
-                  {item.description/* .length > 30 */
-                    ? item.description.substring(0, 30) + '...'
-                    : item.description}
-                </Text>
+                <Text style={styles.price}>{'$' + item.price}</Text>
+                </View>
                 <View style={styles.qtyview}>
-                  <Text style={styles.price}>{'$' + item.price}</Text>
                   <TouchableOpacity
                     style={styles.btn}
                     onPress={() => {
@@ -125,7 +122,6 @@ const styles = StyleSheet.create({
     left: 10
   },
   name: {
-    top:15,
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 20,
@@ -137,14 +133,11 @@ const styles = StyleSheet.create({
     color: 'green',
     fontSize: 18,
     fontWeight: '600',
-    marginLeft: 20,
-    marginTop: 5,
+    marginLeft: 20
   },
   qtyview: {
-    bottom: 13,
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
+    alignItems: 'center'
   },
   btn: {
     padding: 5,
@@ -153,10 +146,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: 0.5,
     borderRadius: 10,
-    marginLeft: 10,
   },
   qty: {
-    marginLeft: 10,
+    marginHorizontal:10,
     fontSize: 18,
   },
   noItems: {

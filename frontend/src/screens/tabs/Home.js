@@ -119,16 +119,16 @@ const Home = () => {
         data={
           selected.valor == null && selected.valor == undefined
             ? products.data
-            : selected.valor === 'Todo'
-              ? products.data
+            : selected.valor === 'Todo' 
+              ? products.data.filter(item => item.available != 0)
               : selected.valor === 'Mujer'
-                ? products.data.filter(item => item.category === 'mujer')
+                ? products.data.filter(item => item.category === 'mujer' && item.available != 0)
                 : selected.valor === 'Hombre'
-                  ? products.data.filter(item => item.category === 'hombre')
+                  ? products.data.filter(item => item.category === 'hombre' && item.available != 0)
                   : selected.valor === 'Niño'
-                    ? products.data.filter(item => item.category === 'niño')
+                    ? products.data.filter(item => item.category === 'niño' && item.available != 0)
                       : selected.valor === 'Niña'
-                      ? products.data.filter(item => item.category === 'niña')
+                      ? products.data.filter(item => item.category === 'niña' && item.available != 0)
                       : []
 
         }

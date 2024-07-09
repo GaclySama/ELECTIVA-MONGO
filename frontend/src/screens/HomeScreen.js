@@ -91,6 +91,20 @@ const HomeScreen = () => {
               }
               style={styles.bottomTabIcon}
             />
+            <View
+              style={{
+                width: 20,
+                height: 20,
+                borderRadius: 10,
+                backgroundColor: 'red',
+                position: 'absolute',
+                left:25,
+                top: 0,
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}>
+              <Text style={{ color: '#fff' }}>{items.data.length}</Text>
+            </View>
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.bottomTab}
@@ -106,20 +120,7 @@ const HomeScreen = () => {
               }
               style={styles.bottomTabIcon}
             />
-            <View
-              style={{
-                width: 20,
-                height: 20,
-                borderRadius: 10,
-                backgroundColor: 'red',
-                position: 'absolute',
-                right:'140%',
-                bottom:'45%',
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
-              <Text style={{ color: '#fff' }}>{items.data.length}</Text>
-            </View>
+            
           </TouchableOpacity>
         </View>
       )}
@@ -153,8 +154,8 @@ const styles = StyleSheet.create({
     },
   },
   bottomTab: {
-    width: '20%',
-    height: '100%',
+    width: 40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },

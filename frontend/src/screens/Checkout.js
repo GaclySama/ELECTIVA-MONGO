@@ -79,12 +79,16 @@ const Checkout = () => {
       ampm = 'am';
     }
 
+    //Generador de numeros random
+    let numb = Math.floor(Math.random() * 90000) + 10000;
+
+
     const data = {
       userId: user._id,
       email: user.email,
       order: cartItems,
       amount: '$' + TotalProdu,
-      orderId: `${day}${month}${year}${hours}${minutes}${seconds}`,
+      orderId: numb.toString(),
       orderStatus: selectedMethod == 3 ? 'Pendiente' : 'Aprobado',
       createdAt: day +'/' +month +'/' +year +' ' +hours +':' +minutes +' ' +ampm,
     };

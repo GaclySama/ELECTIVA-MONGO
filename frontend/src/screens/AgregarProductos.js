@@ -64,8 +64,7 @@ import { addProduct } from '../services/admin'
           // Llamar a la función addProduct del servicio admin con formData
           await addProduct({ pImagen: image, pTitle: nombre, pStock: disponible, pPrice: precio, pGenero: selected });
 
-          // Mostrar modal de éxito
-          setModalVisible(true);
+
       } catch (error) {
           console.error('Error al agregar producto:', error);
           // Manejar errores según sea necesario
@@ -184,7 +183,7 @@ import { addProduct } from '../services/admin'
               <TextInput style={styles.Input} placeholder='Ejemplo: 13.80' value={precio} onChangeText={txt => setPrecio(txt)} />
 
                 <View style={{ padding: 5, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
-                    <Pressable style={styles.Btn} onPress={() => {handlesubmit();}} ><Text style={styles.BtnText}>Agregar Producto</Text></Pressable>
+                    <Pressable style={styles.Btn} onPress={() => {setModalVisible(true);}} ><Text style={styles.BtnText}>Agregar Producto</Text></Pressable>
                 </View>
             </View>
           </View>

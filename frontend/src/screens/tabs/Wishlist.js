@@ -43,16 +43,12 @@ const Wishlist = () => {
                 navigation.navigate('ProductDetail', {data: item});
               }}>
               <Image source={{uri: item.imagen}} style={styles.itemImage} />
-              <View>
+              <View style={{width: '100%',flexDirection:'row'}}>
+              <View style={{width:'55%',}}>
                 <Text style={styles.name}>
                   {item.title/* .length > 25 */
                     ? item.title.substring(0, 25) + '...'
                     : item.title}
-                </Text>
-                <Text style={styles.desc}>
-                  {item.description/* .length > 30 */
-                    ? item.description.substring(0, 30) + '...'
-                    : item.description}
                 </Text>
                 <View style={styles.qtyview}>
                   <Text style={styles.price}>{'$' + item.price}</Text>
@@ -70,6 +66,7 @@ const Wishlist = () => {
                   <Text style={styles.qty}>{item.qty}</Text>
                   
                 </View>
+              </View>
               </View>
             </TouchableOpacity>
           );
@@ -108,9 +105,6 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     marginLeft: 20,
   },
-  desc: {
-    marginLeft: 20,
-  },
   price: {
     color: 'green',
     fontSize: 18,
@@ -120,14 +114,13 @@ const styles = StyleSheet.create({
   },
   qtyview: {
     flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
+    alignItems: 'center'
   },
   btn: {
     padding: 5,
     width: 50,
     height: 50,
-    left:100,
+    left:120,
     bottom:20,
     justifyContent: 'center',
     alignItems: 'center',
