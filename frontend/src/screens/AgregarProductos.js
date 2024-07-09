@@ -1,5 +1,6 @@
 import {
     View,
+    Modal,
     Text,
     StyleSheet,
     Image,
@@ -8,14 +9,15 @@ import {
     TextInput,
     FlatList
   } from 'react-native';
-  import React, {useState} from 'react';
-  import Header from '../common/Header';
-  import {useNavigation, useRoute} from '@react-navigation/native';
-  import {useDispatch, useSelector} from 'react-redux';
-  import AsyncStorage from '@react-native-async-storage/async-storage';
-  import { notificaInfo, notificaInfoWishList } from './tabs/Notification';
-  import * as ImagePicker from 'expo-image-picker'
-  import { notificaErrorAgregar } from './tabs/Notification';
+import React, {useState} from 'react';
+import Header from '../common/Header';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { notificaInfo, notificaInfoWishList } from './tabs/Notification';
+import * as ImagePicker from 'expo-image-picker'
+import { notificaErrorAgregar } from './tabs/Notification';
+import { addProduct } from '../services/admin' 
 
 
   const EditarProducto = () => {
@@ -33,29 +35,42 @@ import {
     const tags = ['hombre', 'mujer', 'niño', 'niña'];
 
     //Image Picker
-    const handleImagePickerPress = async() => {
+    const handleImagePickerPress = async () => {
       let result = await ImagePicker.launchImageLibraryAsync({
         mediaTypes: ImagePicker.MediaTypeOptions.All,
         allowsEditing: true,
-        aspect: [1, 1],
+        aspect: [4, 3],
         quality: 1,
-      })
-
-      if (!result.canceled){
-        setImage(result.assets[0].uri)
+      });
+  
+      console.log(result.assets[0].uri);
+  
+      if (!result.canceled) {
+        setImage(result.assets[0].uri);
       }
-    }
+    };
 
     //Validacion de dataentry
-    const handlesubmit = () => {
-      if(image === '' || nombre === '' || disponible === '' || precio === ''){
-          notificaErrorAgregar();
-          setModalVisible(false);
-      }else{
-          //Si el usuario ingreso datos se mostrara la ventana modal
+    const handlesubmit = async () => {
+      try {
+          if (image === '' || nombre === '' || disponible === '' || precio === '') {
+              notificaErrorAgregar();
+              setModalVisible(false);
+              return;
+          }
+
+        
+
+          // Llamar a la función addProduct del servicio admin con formData
+          await addProduct({ pImagen: image, pTitle: nombre, pStock: disponible, pPrice: precio, pGenero: selected });
+
+          // Mostrar modal de éxito
           setModalVisible(true);
-      }  
-  }
+      } catch (error) {
+          console.error('Error al agregar producto:', error);
+          // Manejar errores según sea necesario
+      }
+  };
 
     return (
       <View style={styles.container}>
@@ -123,7 +138,43 @@ import {
                     );
                   }}
                 />
+                <Modal
+                  animationType="fade"
+                  transparent={true}
+                  visible={modalVisible}
+                  onRequestClose={() => setModalVisible(false)}
+                  >
+                  <View style={styles.centeredView}>
+                      <View style={styles.modalView}>
+                          <Text style={styles.ModaText}>¿Deseas Actualizar los datos ingresados?</Text>
+                          <View style={{flexDirection:'row', top:'10%'}}>
+                              <TouchableOpacity
+                                  style={styles.btnOpcion}
+                                  onPress={() => {
+                                      // * SI
+                                      //AL PRESIONAR SE CERRARA LA VENTANA MODAL 
+                                      handlesubmit();
+                                      setModalVisible(false);
+                                  }}>
+                                  <Text style={{color:'black', fontSize: 20, fontWeight: '500'}}>Si</Text>
+                              </TouchableOpacity>
+                              <TouchableOpacity
+                                  style={styles.btnOpcion}
+                                  onPress={() => {
+                                      // ! NO
+                                      //AL PRESIONAR SE CERRARA LA VENTANA MODAL
+                                      setModalVisible(false);
+                                  }}>
+                                  <Text style={{color:'black', fontSize: 20, fontWeight: '500'}}>No</Text>
+                              </TouchableOpacity>
+                          </View>
+                      </View>
+                  </View>
+                </Modal>
+
               </View>
+
+              
                
               
               <Text style={{top:'2%', left:'8%',fontWeight:'bold'}}>Disponibilidad: <Text style={{color:'red'}}>* Requerido *</Text> </Text>
@@ -274,7 +325,48 @@ import {
     isSelected: {
       backgroundColor: "#f9ca24",
       color: "#000",
+    },
+    centeredView: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'rgba(52, 52, 52, 0.8)'
+  },
+  modalView: {
+      width:250,
+      height:200,
+      margin: 20,
+      backgroundColor: 'white',
+      borderRadius: 20,
+      padding: 35,
+      alignItems: 'center',
+      shadowColor: '#000',
+      shadowOffset: {
+      width: 0,
+      height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
+  },
+  ModaText:{
+      fontSize:16,
+      textAlign:'center',
+      justifyContent:'center',
+      color:'#000',
+  },
+  btnOpcion: {
+      padding: 5,
+      width: 40,
+      height: 40,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderRadius: 5,
+      margin: 10,
+      marginHorizontal: 20,
+      backgroundColor:'#bdc3c7'
     }
+
 
   });
   

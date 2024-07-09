@@ -9,17 +9,19 @@ import {
     Modal,
     TouchableOpacity
   } from 'react-native';
-  import React, {useState} from 'react';
-  import Header from '../common/Header';
-  import {useNavigation, useRoute} from '@react-navigation/native';
-  import {useDispatch, useSelector} from 'react-redux';
-  import AsyncStorage from '@react-native-async-storage/async-storage';
-  import { notificaErrorActualizar } from './tabs/Notification';
-  
+import React, {useState} from 'react';
+import Header from '../common/Header';
+import {useNavigation, useRoute} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { notificaErrorActualizar } from './tabs/Notification';
+import { updateProduct } from "../services/admin"
+
   const EditarProducto = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const navigation = useNavigation();
     const route = useRoute();
+    const product = route.params?.data
     const dispatch = useDispatch();
   
     //recolecta los datos
@@ -28,6 +30,7 @@ import {
 
     //Validacion de dataentry
     const handlesubmit = () => {
+      console.log(product._id);
       if(disponible === '' && precio === ''){
           notificaErrorActualizar();
           setModalVisible(false);
@@ -60,7 +63,6 @@ import {
               <TextInput style={styles.Input} placeholder='Ingresa nueva disponibilidad' value={disponible} onChangeText={txt => setDisponible(txt)} />
               <Text style={{top:'2%', left:'8%',fontWeight:'bold'}}>Precio:  <Text style={{color:'green'}}>{route.params.data.price}</Text><Text style={{color:'red'}}> - Precio actual</Text></Text>
               <TextInput style={styles.Input} placeholder='Ingresa nuevo precio' value={precio} onChangeText={txt => setPrecio(txt)} />
-
                 <View style={{ padding: 5, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}>
                     <Pressable style={styles.Btn} onPress={() => {handlesubmit();}} ><Text style={styles.BtnText}>Actualizar Producto</Text></Pressable>
                 </View>
@@ -82,7 +84,9 @@ import {
                               <TouchableOpacity
                                   style={styles.btnOpcion}
                                   onPress={() => {
+                                      // * SI
                                       //AL PRESIONAR SE CERRARA LA VENTANA MODAL 
+                                      updateProduct({id: product._id, disponible: disponible, precio: precio});
                                       setModalVisible(false);
                                   }}>
                                   <Text style={{color:'black', fontSize: 20, fontWeight: '500'}}>Si</Text>
@@ -90,6 +94,7 @@ import {
                               <TouchableOpacity
                                   style={styles.btnOpcion}
                                   onPress={() => {
+                                      // ! NO
                                       //AL PRESIONAR SE CERRARA LA VENTANA MODAL
                                       setModalVisible(false);
                                   }}>

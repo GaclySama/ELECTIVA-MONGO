@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import user, product, order
+from routes import user, product, order, admin
 
 # * DESCRIPCIÓN DE API
 app = FastAPI(
@@ -15,6 +15,7 @@ app = FastAPI(
 app.include_router(user.router)
 app.include_router(product.router)
 app.include_router(order.router)
+app.include_router(admin.router)
 
 
 # * MIDDELWARE

@@ -5,10 +5,12 @@ import {useNavigation} from '@react-navigation/native';
 import Header from '../common/Header';
 import { addProducts } from '../redux/slices/ProductsSlice';
 import { useDispatch } from 'react-redux';
+import { updateProduct } from '../services/admin';
 
 
 const GestionarProductos = () => {
     const [modalVisible, setModalVisible] = useState(false);
+    const [ prodIndex, setProdIndex ] = useState();
     /* let isValid = true; */
     const navigation = useNavigation();
     const [products, setProducts] = useState([]);
@@ -91,8 +93,10 @@ const GestionarProductos = () => {
                   <TouchableOpacity
                     style={styles.btnElim}
                     onPress={() => 
-                        
-                        setModalVisible(true)}>
+                        {
+                          setProdIndex(index)
+                          setModalVisible(true)
+                        }}>
                     <Text style={{color:'white', fontSize: 24, fontWeight: '600'}}>X</Text>
                   </TouchableOpacity>
                   
@@ -116,6 +120,8 @@ const GestionarProductos = () => {
                             <TouchableOpacity
                                 style={styles.btnOpcion}
                                 onPress={() => {
+                                    // * SI
+                                    updateProduct({id: products.data[prodIndex]['_id'], available: 0})
                                     //AL PRESIONAR Si SE CERRARA LA VENTANA MODAL
                                     setModalVisible(false);
                                 }}>
@@ -124,6 +130,7 @@ const GestionarProductos = () => {
                             <TouchableOpacity
                                 style={styles.btnOpcion}
                                 onPress={() => {
+                                    // ! NO
                                     //AL PRESIONAR NO SE CERRARA LA VENTANA MODAL
                                     setModalVisible(false);
                                 }}>
